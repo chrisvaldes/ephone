@@ -1,7 +1,9 @@
 <?php
 
+
 include "../model/userModel.php";
 
+session_start();
 class UserControler
 {
     private $userModel;
@@ -52,11 +54,11 @@ class UserControler
             $this->userPhoto =  $_FILES['userPhoto']["name"];
             $this->userPhoto_temp = $_FILES['userPhoto']["tmp_name"];
             $this->userPhoto_folder = $this->userPhoto;
-
+            echo trim($_POST['userEmail']);
             move_uploaded_file($this->userPhoto_temp, $this->userPhoto_folder);
             $data = array(
-                ":userEmail" => trim($_POST['userName']),
-                ":userName" => trim($_POST["userEmail"]),
+                ":userEmail" => trim($_POST['userEmail']),
+                ":userName" => trim($_POST["userName"]),
                 ":userPrefer" => trim($_POST["userPrefer"]),
                 ":userAnswer" => trim($_POST["userAnswer"]),
                 ":userPhoto" => $this->userPhoto_folder,
@@ -77,18 +79,8 @@ class UserControler
             );
             $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
             $userModel = new UserModel($db);
-            $userCount = $userModel->getUserConnexion($data);
-            // echo "userEmail : ". $userEmailResult[0] ." ";
-            if ($userCount>0) {
-                // stockage de notre utilisateur dans une variable de session
-                $userEmail = $_SESSION['$userEmail'];
-                echo "userEmail : ". $userEmail." ";
-                // header('location:../vue/welcome.php');
-            } else {
-                echo "userEmail : indefined";
-                $_SESSION["error_message"] = "Email ou mot de passe incorrect";
-                header('location:login.php');
-            }
+            $userModel->getUserConnexion($data);
         }
     }
+    
 }

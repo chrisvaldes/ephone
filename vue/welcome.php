@@ -1,12 +1,14 @@
-<!-- <?php
+ <?php
+    session_start();
 
     $userEmail = $_SESSION["userEmail"];
-
+     
     if(!isset($userEmail)){
+
         header('location:login.php');
     }
 
-?> -->
+?> 
 
 
 <!DOCTYPE html>

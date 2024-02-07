@@ -2,12 +2,15 @@
 
 include '../composant/contactComponent.php';
 
+session_start();
+
 $userEmail = $_SESSION["userEmail"];
 
 if (!isset($userEmail)) {
+
     header('location:login.php');
 }
-
+echo $_SESSION['userEmail'];
 
 ?>
 
@@ -41,7 +44,7 @@ if (!isset($userEmail)) {
                     <div class="card-title" style="display: flex; align-items: center; justify-content: space-between; padding: 0 2rem;">
                         <h4>Contacts</h4>
                         <div class="card-icon">
-                            <a style="cursor:pointer; margin-left: 1rem;"><i class="fa fa-plus"></i></a>
+                            <a href="addcontact.php" style="cursor:pointer; margin-left: 1rem;"><i class="fa fa-plus"></i></a>
                             <a style="cursor:pointer; margin-left: 1rem;"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
@@ -50,10 +53,13 @@ if (!isset($userEmail)) {
                         <ul class="collapsible">
                             <?php
                             $composant = new Composant();
-                            $i = 0;
-                            while ($i < 8) {
-                                $composant->contactComponent("userPhoto", "userName$i", "userContact");
-                                $i += 1;
+
+                            $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
+                            $stmt = $db->prepare('SELECT distinct  contact.nameContact, contact.contactNumber FROM userapp, contact WHERE contact.userEmail = :userEmail ');
+                            $stmt->bindParam(':userEmail', $_SESSION["userEmail"]);
+                            $stmt->execute();  
+                            while ($userResult = $stmt->fetch(PDO::FETCH_ASSOC)) {  
+                                $composant->contactComponent($userResult['nameContact'], $userResult['contactNumber']);
                             }
 
                             ?>

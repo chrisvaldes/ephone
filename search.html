@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePhoneBook - Rechercher un contact</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .form-control {
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #c23da5;
+            box-shadow: none;
+        }
+
+        .form-control:hover {
+            border-color: #c23da5;
+        }
+
+        .btn-primary {
+            background-color: #9a087b;
+            border-color: #9a087b;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #c23da5;
+            border-color: #c23da5;
+        }
+
+        /* Styles supplémentaires pour la section ePhoneBook */
+        .phonebook-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .phonebook-section h3 {
+            color: #9a087b;
+        }
+
+        .phonebook-section p {
+            color: #000000;
+            font-size: larger;
+        }
+
+        /* Style pour le formulaire de recherche */
+        .search-form {
+            margin-top: 20px;
+        }
+
+        /* Style pour le message de résultat de recherche */
+        .search-result-message {
+            margin-top: 20px;
+            color: #000000;
+            font-size: larger;
+        }
+
+        /* Style pour le message de résultat de recherche floué (ajouté) */
+        .no-search-result {
+            color: #000000;
+            font-size: larger;
+            filter: blur(0.5px);
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <!-- Nouvelle section pour ePhoneBook -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card p-4 shadow-sm rounded-lg phonebook-section">
+                <h3 class="text-center mb-4">Rechercher un contact</h3>
+
+                <!-- Formulaire de recherche -->
+                <form class="search-form">
+                    <div class="input-group mb-3">
+                        <!-- Champ de recherche -->
+                        <input type="text" class="form-control" placeholder="Recherche..." aria-label="Recherche" aria-describedby="button-search">
+                        
+                        <!-- Bouton "Rechercher" -->
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="button-search">Rechercher</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Message de résultat de recherche -->
+                <p class="search-result-message no-search-result">Aucune recherche effectuée pour le moment.</p>
+
+                <!-- Afficher les résultats de recherche ici (ajuster si nécessaire) -->
+                <!-- <div class="search-results">
+                     Afficher dynamiquement les résultats de recherche en fonction de la requête de la base de données
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

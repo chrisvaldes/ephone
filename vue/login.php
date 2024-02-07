@@ -2,9 +2,7 @@
 
 include "../controleur/userControler.php";
 $userControler = new UserControler();
-
-session_start();
-
+ 
 $userControler->getUser();
 
 
