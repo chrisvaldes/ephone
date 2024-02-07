@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 07 fév. 2024 à 07:37
+-- Généré le : mer. 07 fév. 2024 à 14:49
 -- Version du serveur : 8.0.27
 -- Version de PHP : 7.4.26
 
@@ -29,21 +29,21 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
-  `contactNumber` int NOT NULL,
-  `userEmail` varchar(60) DEFAULT NULL,
+  `idContact` int NOT NULL AUTO_INCREMENT,
+  `contactNumber` int DEFAULT NULL,
   `nameContact` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`contactNumber`),
-  KEY `userEmail` (`userEmail`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `userEmail` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`idContact`),
+  KEY `userEmail` (`userEmail`(250))
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `contact`
 --
 
-INSERT INTO `contact` (`contactNumber`, `userEmail`, `nameContact`) VALUES
-(656651773, 'valdes@gmail.com', 'valdes'),
-(693518462, 'valdes@gmail.com', 'sonia'),
-(678866862, 'chris@gmail.com', 'Idriss');
+INSERT INTO `contact` (`idContact`, `contactNumber`, `nameContact`, `userEmail`) VALUES
+(1, 2147483647, 'valdes chris', 'valdes@gmail.com'),
+(3, 656651773, 'valdes', 'chris@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -58,7 +58,16 @@ CREATE TABLE IF NOT EXISTS `message` (
   `userMessage` text,
   PRIMARY KEY (`idMessage`),
   KEY `userEMail` (`userEMail`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`idMessage`, `userEMail`, `userMessage`) VALUES
+(1, 'chris@gmail.com', 'Bonjour val'),
+(2, 'chris@gmail.com', 'Bonjour val'),
+(3, 'chris@gmail.com', 'comment tu vas?');
 
 -- --------------------------------------------------------
 
