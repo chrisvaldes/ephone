@@ -3,12 +3,13 @@
 session_start();
 
 $userEmail = $_SESSION["userEmail"];
-$modify = $_GET['modifyContact']; 
+$idContact = $_GET['modifyContact']; 
 if (!isset($userEmail)) {
 
     header('location:login.php');
 }
-echo $_SESSION['userEmail'];
+echo $_SESSION['userEmail']; 
+echo $idContact;
 
 include '../controleur/contactControler.php';
 $contactController = new contactController();
@@ -18,11 +19,11 @@ $contactController->updateContact();
 
 
 $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
-$stmt = $db->prepare('SELECT contactNumber, nameContact FROM contact WHERE contactNumber = :userNumber ');
-$stmt->bindParam(':userNumber', $modify);
+$stmt = $db->prepare('SELECT contactNumber, nameContact FROM contact WHERE idContact = :idContact ');
+$stmt->bindParam(':idContact', $idContact);
 $stmt->execute();
 $contactResult = $stmt->fetch();
-// echo $contactResult["number"] . " " . $contactResult["nameContact"];
+// echo $contactResult["contactNumber"] . " " . $contactResult["nameContact"];
 
 ?>
 
@@ -143,9 +144,14 @@ $contactResult = $stmt->fetch();
                     <!-- Formulaire de modification de contact -->
                     <form class="modify-contact-form"  action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                         <!-- Circular image and hidden input for file selection -->
+                         
                         <div class="circular-image-wrapper">
                             <img src="#" alt="Profile Image" class="circular-image d-block mx-auto" id="imagePreview">
                             <input type="file" name="image" accept="image/*" class="hidden-input" id="imageInput" />
+                        </div>
+
+                        <div class="form-group mb-3 mt-4">
+                            <input type="hidden" value="<?php echo $idContact?>" type="text" class="form-control" name="idContact" placeholder="Nom du contact" required>
                         </div>
 
                         <div class="form-group mb-3 mt-4">

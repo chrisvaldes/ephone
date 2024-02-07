@@ -21,10 +21,10 @@ class contactModel{
     }
 
     public function updateContactDB($data){
-        $stmt = $this->pdo->prepare('UPDATE contact SET contactNumber  = :contactNumber, nameContact = :nameContact WHERE userEmail = :userEmail');
+        $stmt = $this->pdo->prepare('UPDATE contact SET contactNumber  = :contactNumber, nameContact = :nameContact WHERE idContact = :idContact');
         $result_updateContact = $stmt->execute($data);
-        echo $data[':contactNumber']. " ". $data[":nameContact"];
-        // echo 'Erreur : '. $stmt->errorInfo()[2];
+        echo $data[':contactNumber']. " ". $data[":nameContact"]. " ". $data[":idContact"];
+        // echo 'Erreur : '. $stmt->errorInfo()[2];q
         if($result_updateContact){
             echo "update";
             header('location:ContactList.php');

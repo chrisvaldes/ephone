@@ -49,21 +49,24 @@ echo $_SESSION['userEmail'];
                         </div>
                     </div>
                     <div class="card-content" style="max-height: 85vh; overflow-y: auto;">
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                            <ul class="collapsible">
+                                <?php
+                                $composant = new Composant();
 
-                        <ul class="collapsible">
-                            <?php
-                            $composant = new Composant();
+                                $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
+                                $stmt = $db->prepare('SELECT distinct contact.idContact, contact.nameContact, contact.contactNumber FROM userapp, contact WHERE contact.userEmail = :userEmail ');
+                                $stmt->bindParam(':userEmail', $_SESSION["userEmail"]);
+                                $stmt->execute();
+                                while ($userResult = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                     
+                                    $composant->contactComponent($userResult['nameContact'], $userResult['contactNumber'], $userResult['idContact']);
+                                }
 
-                            $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
-                            $stmt = $db->prepare('SELECT distinct  contact.nameContact, contact.contactNumber FROM userapp, contact WHERE contact.userEmail = :userEmail ');
-                            $stmt->bindParam(':userEmail', $_SESSION["userEmail"]);
-                            $stmt->execute();  
-                            while ($userResult = $stmt->fetch(PDO::FETCH_ASSOC)) {  
-                                $composant->contactComponent($userResult['nameContact'], $userResult['contactNumber']);
-                            }
+                                ?>
+                            </ul>
+                        </form>
 
-                            ?>
-                        </ul>
                     </div>
                 </div>
 
