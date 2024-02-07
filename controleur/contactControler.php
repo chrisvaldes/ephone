@@ -2,11 +2,7 @@
 
 include '../model/contactModel.php';
 
-class contactController{
-    private $number;
-    private $userEmail;
-    private $nameContact;
-    private $photo;
+class contactController{  
 
     public function insertContact(){
         $db = new PDO('mysql:host=localhost; dbname=ephonebook', 'root', '');
@@ -24,10 +20,11 @@ class contactController{
     public function updateContact(){
         $db = new PDO('mysql:host=localhost; dbname=ephonebook', 'root', '');
         if(isset($_POST['updateContact'])){
+ 
             $data = array(
                 ':contactNumber' => trim($_POST['contactNumber']),
                 ':userEmail' => trim($_SESSION['userEmail']),
-                ':nameContact' => trim($_POST['contactName']),
+                ':nameContact' => trim($_POST['nameContact']),
             );
             $contactModel = new contactModel($db);
             $contactModel->updateContactDB($data);

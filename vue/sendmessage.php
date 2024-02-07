@@ -8,17 +8,23 @@ if (!isset($userEmail)) {
 
     header('location:login.php');
 }
-echo $_SESSION['userEmail'];
 
+echo $_SESSION['userEmail'];
 
 $message = $_GET['message'];
 
 $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
-$stmt = $db->prepare('SELECT nameContact FROM contact WHERE number = :userNumber ');
+$stmt = $db->prepare('SELECT nameContact FROM contact WHERE contactNumber = :userNumber ');
 $stmt->bindParam(':userNumber', $message);
 $stmt->execute();
 $contactResult = $stmt->fetch();
 // echo $contactResult["number"] . " " . $contactResult["nameContact"];
+
+include '../controleur/messageControler.php';
+
+$messageControler = new messageControler();
+$messageControler->messageToSend();
+
 ?>
 
 <!DOCTYPE html>
@@ -90,9 +96,9 @@ $contactResult = $stmt->fetch();
                 <h4 class="text-center mb-4" style="font-weight: bold;">ENVOYER UN MESSAGE A <?php echo $contactResult["nameContact"]?> ?</h4>
 
                 <!-- Send Message Form -->
-                <form class="send-message-form">
+                <form class="send-message-form"  action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <div class="form-group mb-3">
-                        <textarea class="form-control" placeholder="Votre message ici..." rows="5" required></textarea>
+                        <textarea class="form-control" placeholder="Votre message ici..." rows="5" name ="userMessage" required></textarea>
                     </div>
 
                     <div class="row card-action">
@@ -100,7 +106,7 @@ $contactResult = $stmt->fetch();
                             <a href="ContactList.php"  class="btn btn-secondary btn-block">Annuler</a>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xm-6" style="margin-top: 1rem;">
-                            <a class="btn btn-primary btn-block">Envoyer</a>
+                            <button name="SendMessage" class="btn btn-primary btn-block">Envoyer</button>
                         </div>
                     </div>
                 </form>

@@ -1,16 +1,21 @@
 <?php
-include '../controleur/contactControler.php';
+
 session_start();
 
 $userEmail = $_SESSION["userEmail"];
-
+$modify = $_GET['modifyContact']; 
 if (!isset($userEmail)) {
 
     header('location:login.php');
 }
 echo $_SESSION['userEmail'];
 
-$modify = $_GET['modify'];
+include '../controleur/contactControler.php';
+$contactController = new contactController();
+$contactController->updateContact();
+
+
+
 
 $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
 $stmt = $db->prepare('SELECT contactNumber, nameContact FROM contact WHERE contactNumber = :userNumber ');
@@ -18,9 +23,6 @@ $stmt->bindParam(':userNumber', $modify);
 $stmt->execute();
 $contactResult = $stmt->fetch();
 // echo $contactResult["number"] . " " . $contactResult["nameContact"];
-
-$contactController = new contactController();
-$contactController->updateContact();
 
 ?>
 
@@ -139,7 +141,7 @@ $contactController->updateContact();
                     <h4 class="text-center mb-10 " style="font-weight: bold; letter-spacing: 2px;">MODIFIER LE CONTACT</h4>
 
                     <!-- Formulaire de modification de contact -->
-                    <form class="modify-contact-form">
+                    <form class="modify-contact-form"  action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                         <!-- Circular image and hidden input for file selection -->
                         <div class="circular-image-wrapper">
                             <img src="#" alt="Profile Image" class="circular-image d-block mx-auto" id="imagePreview">
@@ -147,11 +149,11 @@ $contactController->updateContact();
                         </div>
 
                         <div class="form-group mb-3 mt-4">
-                            <input value="<?php echo $contactResult['nameContact']?>" type="text" class="form-control" placeholder="Nom du contact" required>
+                            <input value="<?php echo $contactResult['nameContact']?>" type="text" class="form-control" name="nameContact" placeholder="Nom du contact" required>
                         </div>
 
                         <div class="form-group mb-3">
-                            <input type="tel" value="<?php echo $contactResult['contactNumber']?>"  class="form-control" placeholder="Numéro de téléphone" required>
+                            <input type="tel" value="<?php echo $contactResult['contactNumber']?>"  class="form-control" name="contactNumber" placeholder="Numéro de téléphone" required>
                         </div>
 
                         <!-- Ajoutez d'autres champs de formulaire au besoin -->
