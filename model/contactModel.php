@@ -34,6 +34,47 @@ class contactModel{
             echo 'unUpdate';
         }
     }
+
+    public function deleteModelDB($data){
+        $stmt = $this->pdo->prepare("DELETE FROM contact WHERE idContact = :idContact");
+        $deleteResult = $stmt->execute($data);
+        if($deleteResult){
+            echo 'supprimer';
+            header('location:ContactList.php');
+        }else{
+            echo 'echec de suppression';
+        }
+    }
+
+    public function shareModelDB($data){
+
+        // echo $data[':userEmail'];
+        $stmt = $this->pdo->prepare("SELECT DISTINCT userEmail FROM contact WHERE userEmail = :userEmail");
+        $stmt->bindParam( ":userEmail", $data[':userEmail']);
+        $stmt->execute();
+        $select_result = $stmt->fetch();
+        // echo "resultat : ";
+        // echo $select_result['userEmail'];
+        if($select_result){
+            $stmt = $this->pdo->prepare("INSERT INTO contact VALUE (null, :contactNumber, :nameContact, :userEmail)");
+            $resultShare = $stmt->execute($data);
+            if($resultShare){ 
+                header('location:ContactList.php');
+                exit();
+            }else{
+                $_SESSION['shareMessage'] = 'erreur de partage';
+            }
+        }else{
+            $_SESSION['shareMessage'] = 'impossible de partager l\'utilisateur n\'existe pas!';
+            header('location:ContactList.php');
+        }
+
+
+       
+    }
+
+
+       
 }
 
 

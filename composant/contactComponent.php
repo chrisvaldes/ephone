@@ -17,10 +17,10 @@
                                         class="fa fa-envelope"></i></a>
                                 <a style="font-size: 1.5rem; cursor: pointer; margin-top: 1rem;"  href="modify.php?modifyContact='.$idContact.'"><i
                                         class="fa fa-edit"></i></a>
-                                <a style="font-size: 1.5rem; cursor: pointer; margin-top: 1rem;"><i
+                                <a style="font-size: 1.5rem; cursor: pointer; margin-top: 1rem;"  href="deleteContact.php?deleteContact='.$idContact.'"><i
                                         class="fa fa-trash"></i></a>
-                                <a style="font-size: 1.5rem; cursor: pointer; margin-top: 1rem;"><i
-                                        class="fa fa-share-alt"></i></a>
+                                <a style="font-size: 1.5rem; cursor: pointer; margin-top: 1rem;" href="ShareContact.php?deleteContact='.$idContact.'"><i
+                                        class="fa fa-share "></i></a>
                                 <a style="font-size: 1.5rem; cursor: pointer; margin-top: 1rem;"><i
                                         class="fa fa-ban"></i></a>
                             </div>

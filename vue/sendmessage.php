@@ -11,13 +11,15 @@ if (!isset($userEmail)) {
 
 echo $_SESSION['userEmail'];
 
-$message = $_GET['message'];
+$message = $_GET['message']; 
+echo "message : ".$message;
+
 
 $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
-$stmt = $db->prepare('SELECT nameContact FROM contact WHERE contactNumber = :userNumber ');
-$stmt->bindParam(':userNumber', $message);
+$stmt = $db->prepare('SELECT nameContact FROM contact WHERE idContact = :idContact ');
+$stmt->bindParam(':idContact', $message);
 $stmt->execute();
-$contactResult = $stmt->fetch();
+$contactResult = $stmt->fetch(); 
 // echo $contactResult["number"] . " " . $contactResult["nameContact"];
 
 include '../controleur/messageControler.php';
@@ -97,6 +99,9 @@ $messageControler->messageToSend();
 
                 <!-- Send Message Form -->
                 <form class="send-message-form"  action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <div class="form-group mb-3">
+                        <input type="hidden" name="sendTo" value="<?php echo $message ?>" rows="5" name ="userMessage" required/>
+                    </div>
                     <div class="form-group mb-3">
                         <textarea class="form-control" placeholder="Votre message ici..." rows="5" name ="userMessage" required></textarea>
                     </div>

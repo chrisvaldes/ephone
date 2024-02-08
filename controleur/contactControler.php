@@ -32,6 +32,32 @@ class contactController{
         }
     }
 
+    public function deleteContact(){
+        $db = new PDO('mysql:host=localhost; dbname=ephonebook', 'root', '');
+        
+        if(isset($_POST['deleteProduct'])){ 
+            echo $_POST['idContact'];
+            $data = array(
+                ':idContact' => trim($_POST['idContact']),
+                 
+            );
+            $contactModel = new contactModel($db);
+            $contactModel->deleteModelDB($data);
+        }
+    }
+    public function shareContact(){
+        $db = new PDO('mysql:host=localhost; dbname=ephonebook', 'root', '');
+        
+        if(isset($_POST['shareNumber'])){ 
+            $data = array(
+                ':contactNumber' => trim($_POST['contactNumber']),
+                ':nameContact' => trim($_POST['nameContact']),
+                ':userEmail' => trim($_POST['userEmail']),
+            );
+            $contactModel = new contactModel($db);
+            $contactModel->shareModelDB($data);
+        }
+    }
 
 }
 
