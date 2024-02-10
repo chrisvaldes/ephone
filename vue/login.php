@@ -2,7 +2,7 @@
 
 include "../controleur/userControler.php";
 $userControler = new UserControler();
- 
+
 $userControler->getUser();
 
 
@@ -40,11 +40,11 @@ $userControler->getUser();
 
         .message span {
             color: red;
-            font-size: 1.2rem; 
+            font-size: 1.2rem;
         }
 
         .message i {
-            cursor: pointer; 
+            cursor: pointer;
             font-size: 1.2rem;
         }
 
@@ -63,14 +63,12 @@ $userControler->getUser();
 
 <body style="background-color: lightgray;">
 
-
-
     <div class="container" style="min-height: 100vh; align-items: center; justify-content: center; display: flex;">
         <div class="row">
             <div class="col md10 offset-m1">
                 <div class="card horizontal " style="background-color: white; border-radius: 10px;">
                     <div class="card-image">
-                        <img src="../images/darknet.jpg" alt="Picture" style="border-radius: 10px; height: 100%;" />
+                        <img src="../images/background.jpg" alt="Picture" style="border-radius: 10px; height: 100%;" />
                     </div>
                     <div class="card-content">
 
@@ -92,7 +90,7 @@ $userControler->getUser();
 
                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                             <div class="form-group row " style="display: flex; justify-content: center; align-items: center;">
-                                <i class="fa fa-user" style="font-size: 2.3rem; margin: 0 1.5rem 0 .5rem;"></i>
+                                <i class="fa fa-envelope" style="font-size: 2rem; margin: 0 1.5rem 0 .5rem; color : lightgrey"></i>
 
                                 <input type="email" class="form-control" placeholder="Email" name="userEmail" required autofocus>
                             </div>

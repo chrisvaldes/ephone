@@ -35,7 +35,7 @@ class contactController{
     public function deleteContact(){
         $db = new PDO('mysql:host=localhost; dbname=ephonebook', 'root', '');
         
-        if(isset($_POST['deleteProduct'])){ 
+        if(isset($_POST['deleteContact'])){ 
             echo $_POST['idContact'];
             $data = array(
                 ':idContact' => trim($_POST['idContact']),

@@ -18,16 +18,14 @@ $contactController->insertContact();
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ePhoneBook - Ajouter un nouveau contact</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-
+    
 
     <style>
         .form-control {
@@ -49,7 +47,8 @@ $contactController->insertContact();
             color: #fff;
         }
 
-        .btn-secondary:hover, .btn-secondary:focus {
+        .btn-secondary:hover,
+        .btn-secondary:focus {
             background-color: #495057;
             border-color: #495057;
         }
@@ -60,7 +59,8 @@ $contactController->insertContact();
             transition: background-color 0.3s, border-color 0.3s;
         }
 
-        .btn-primary:hover, .btn-primary:focus {
+        .btn-primary:hover,
+        .btn-primary:focus {
             background-color: #c23da5;
             border-color: #c23da5;
         }
@@ -83,7 +83,7 @@ $contactController->insertContact();
         }
 
         /* Style for the add new contact form */
-        form{
+        form {
             margin-top: 20px;
             text-align: center;
         }
@@ -113,70 +113,87 @@ $contactController->insertContact();
             opacity: 0;
             cursor: pointer;
         }
+        @media (max-width : 700px) {
+            .card .card-image {
+                display: none;
+            }
+        }
     </style>
 </head>
+
 <body class="bg-light">
 
-<div class="container mt-5">
+    <div class="container "style="min-height: 100vh; align-items: center; justify-content: center; display: flex;">
 
-    <!-- New Section for ePhoneBook -->
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-10">
-            <div class="card p-4 shadow-sm rounded-lg phonebook-section">
-                <h4 class="text-center mb-4" style="font-weight: bold; letter-spacing: 2px;">NOUVEAU CONTACT</h4>
-
-                <!-- Add New Contact Form -->
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <!-- Circular image and hidden input for file selection -->
-                    <div class="circular-image-wrapper">
-                        <img src="#" alt="Profile Image" class="circular-image d-block mx-auto" id="imagePreview">
-                        <input type="file" name="image" accept="image/*" class="hidden-input" id="imageInput" />
+        <!-- New Section for ePhoneBook -->
+        <div class="row ">
+            <div class="col m10 offset-m1 s12">
+                <div class="card horizontal">
+                    <div class="card-image ">
+                        <img src="../images/addContactImage.png" alt="Picture" style="border-radius: 10px; height:100%" />
                     </div>
 
-                    <div class="form-group mb-3">
-                        <input type="text" class="form-control" id="nom" placeholder="Nom" name='contactName' required>
-                    </div>
+                    <div class="card-content">
+                        <div class="card-stacked">
+                            <!-- Add New Contact Form -->
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
-                    <div class="form-group mb-3">
-                       
-                        <input type="number" class="form-control" id="numero" placeholder="Numéro de téléphone" name='contactNumber' required>
-                    </div>
+                                <h4 class="text-center mb-4" style="font-weight: bold; letter-spacing: 2px;">NOUVEAU CONTACT</h4>
 
-                    <!-- Buttons for Cancel and Save -->
-                    <div class="row card-action">
-                        <div class="col-md-6 col-sm-6 col-xm-6" style="margin-top: 1rem;">
-                            <a href="ContactList.php"  class="btn btn-secondary btn-block">Retour</a>
+                                <!-- Circular image and hidden input for file selection -->
+                                <div class="circular-image-wrapper">
+                                    <img src="#" alt="Profile Image" class="circular-image d-block mx-auto" id="imagePreview">
+                                    <input type="file" name="image" accept="image/*" class="hidden-input" id="imageInput" />
+                                </div>
+
+                                <div class="form-group ">
+                                    <input type="text" class="form-control" id="nom" placeholder="Nom" name='contactName' required>
+                                </div>
+
+                                <div class="form-group  ">
+
+                                    <input type="number" class="form-control" id="numero" placeholder="Numéro de téléphone" name='contactNumber' required>
+                                </div>
+
+                                <!-- Buttons for Cancel and Save -->
+                                <div class=" card-action" style="display:flex; align-items: center; justify-content : space-between">
+                                    <div  style="margin-right: 1rem;">
+                                        <a href="ContactList.php" class="btn btn-secondary btn-block">Retour</a>
+                                    </div>
+                                    <div   style="margin-left: 1rem;">
+                                        <button class="btn btn-primary btn-block" name='Save_contact'>Ajouter</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xm-6" style="margin-top: 1rem;">
-                            <button class="btn btn-primary btn-block" name='Save_contact'>Enregistrer</button>
-                        </div>
                     </div>
-                </form>
 
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    // JavaScript code to preview the selected circular image
-    document.getElementById('imageInput').addEventListener('input', function (event) {
-        var imagePreview = document.getElementById('imagePreview');
-        var file = event.target.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                imagePreview.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+    <script>
+        // JavaScript code to preview the selected circular image
+        document.getElementById('imageInput').addEventListener('input', function(event) {
+            var imagePreview = document.getElementById('imagePreview');
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-    // Trigger file input click when clicking on the circular image
-    document.querySelector('.circular-image-wrapper').addEventListener('click', function () {
-        document.getElementById('imageInput').click();
-    });
-</script>
+        // Trigger file input click when clicking on the circular image
+        document.querySelector('.circular-image-wrapper').addEventListener('click', function() {
+            document.getElementById('imageInput').click();
+        });
+    </script>
 
 </body>
+
 </html>

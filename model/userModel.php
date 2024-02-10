@@ -1,5 +1,7 @@
 <?php
 
+
+
 class UserModel
 {
     private $pdo;
@@ -12,11 +14,12 @@ class UserModel
     {
         $stmt = $this->pdo->prepare("INSERT INTO USERAPP VALUES (:userEmail, :userName,
          :userPrefer, :userAnswer, :userPhoto, :userPassword)");
-        $result = $stmt->execute($data);
-        if ($result) {
-            $message[] = "Ajouter avec Success";
+        $resultCreateUser = $stmt->execute($data);
+        if ($resultCreateUser) { 
+            header('location:login.php');
         } else {
-            $message[] = "Quelque chose c'est mal passé";
+            // $_SESSION["message_success_SignUp"] = "Quelque chose c'est mal passé";
+            header('location:SignUp.php');
         }
     }
 
@@ -28,6 +31,7 @@ class UserModel
         $result = $stmt->fetch();
         // Récupération du nombre d'enregistrements retournés
         $userCount = $stmt->rowCount();
+        echo $result['userEmail'];
         if ($userCount > 0) {
             // Stockage de notre utilisateur dans une variable de session
             $_SESSION["userEmail"] = $result["userEmail"];
@@ -40,8 +44,9 @@ class UserModel
         }
     }
 
-    public function getAllUserModel(){
-        $stmt = $this->pdo->prepare('SELECT userName, usePhone FROM userapp, contact WHERE userEmail = '.$_SESSION["userEmail"].' ');
+    public function getAllUserModel()
+    {
+        $stmt = $this->pdo->prepare('SELECT userName, usePhone FROM userapp, contact WHERE userEmail = ' . $_SESSION["userEmail"] . ' ');
         $stmt->execute();
         $userResult = $stmt->fetch();
         return $userResult;

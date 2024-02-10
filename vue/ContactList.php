@@ -24,6 +24,7 @@ echo $_SESSION['userEmail'];
     <title>Contacts List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -34,7 +35,7 @@ echo $_SESSION['userEmail'];
             var instances = M.Collapsible.init(elems);
         });
     </script>
-    
+
 </head>
 
 <body>
@@ -48,6 +49,31 @@ echo $_SESSION['userEmail'];
                         <div class="card-icon">
                             <a href="addcontact.php" style="cursor:pointer; margin-left: 1rem;"><i class="fa fa-plus"></i></a>
                             <a style="cursor:pointer; margin-left: 1rem;"><i class="fa fa-search"></i></a>
+                            <a href="getMessages.php" class="btn btn-primary position-relative">
+                                Inbox
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <?php
+                                    // get username contact
+                                    $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
+                                    $stmt = $db->prepare('SELECT nameContact FROM contact  WHERE userEmail = :userEmail');
+                                    $stmt->bindParam(':userEmail', $_SESSION['userEmail']);
+                                    $stmt->execute(); 
+                                    $result_nameContact = $stmt->fetch();
+                                    // echo $result_nameContact['nameContact']; 
+
+
+                                    // get all messages
+                                    $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
+                                    $stmt = $db->prepare('SELECT * FROM message  WHERE userEmailMessage = :userEmailMessage');
+                                    $stmt->bindParam(':userEmailMessage', $_SESSION['userEmail']); 
+                                    $stmt->execute();
+                                    $totalMessage = $stmt->rowCount();
+                                    echo $totalMessage;
+                                    ?>
+
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
+                            </a>
                         </div>
                     </div>
                     <div class="card-content" style="max-height: 85vh; overflow-y: auto;">
@@ -75,7 +101,7 @@ echo $_SESSION['userEmail'];
         </div>
     </div>
 
-    
+
 
 </body>
 

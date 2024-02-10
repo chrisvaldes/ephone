@@ -16,10 +16,11 @@ echo "message : ".$message;
 
 
 $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
-$stmt = $db->prepare('SELECT nameContact FROM contact WHERE idContact = :idContact ');
+$stmt = $db->prepare('SELECT nameContact, userEmail FROM contact WHERE idContact = :idContact ');
 $stmt->bindParam(':idContact', $message);
 $stmt->execute();
 $contactResult = $stmt->fetch(); 
+echo $contactResult['userEmail'];
 // echo $contactResult["number"] . " " . $contactResult["nameContact"];
 
 include '../controleur/messageControler.php';
@@ -100,7 +101,15 @@ $messageControler->messageToSend();
                 <!-- Send Message Form -->
                 <form class="send-message-form"  action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <div class="form-group mb-3">
-                        <input type="hidden" name="sendTo" value="<?php echo $message ?>" rows="5" name ="userMessage" required/>
+                     <?php 
+                        $db = new PDO("mysql:host=localhost; dbname=ephonebook", "root", "");
+                        $stmt = $db->prepare('SELECT distinct userName, userEmail FROM userapp WHERE userEmail = :userEmail ');
+                        $stmt->bindParam(':userEmail', $userEmail);
+                        $stmt->execute();
+                        $userNameSender = $stmt->fetch();
+                     ?>
+                    <input type="hidden" value="<?php echo $userNameSender['userName']; ?>" rows="5" name ="userNameMessage" />
+                    <input type="text" placeholder="Entrez son adresse Email Ex : <?php echo $contactResult['nameContact'] ?>@gmail.com" rows="5" name ="userEmailMessage" style='width:100%; border-radius : 5px; padding : .5rem 1rem'/>
                     </div>
                     <div class="form-group mb-3">
                         <textarea class="form-control" placeholder="Votre message ici..." rows="5" name ="userMessage" required></textarea>

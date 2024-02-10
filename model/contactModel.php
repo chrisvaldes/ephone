@@ -10,11 +10,12 @@ class contactModel{
     public function insertContactDB($data){
         $stmt = $this->pdo->prepare('INSERT INTO contact VALUES (null, :contactNumber, :nameContact, :userEmail)');
         $insertContact_result = $stmt->execute($data);
-        echo "Erreur PDO : ".$stmt->errorInfo()[2];
+        echo "Info PDO : ".$stmt->errorInfo()[2];
         echo $data[':contactNumber']. ' '. $data[':nameContact'];
         echo 'valeur de result '. $insertContact_result;
         if($insertContact_result){
-            echo 'Ajouter avec success';
+            header('location:ContactList.php');
+            exit();
         }else{
             echo 'Une erreur c\'est produite';
         }
@@ -41,6 +42,7 @@ class contactModel{
         if($deleteResult){
             echo 'supprimer';
             header('location:ContactList.php');
+            exit();
         }else{
             echo 'echec de suppression';
         }

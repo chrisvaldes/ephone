@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="card-action" style="display:flex; align-items : center; justify-content:space-around">
                                             <a href="ContactList.php">Annuler</a>
-                                            <button type="submit" name="deleteProduct" class="btn">Supprimer</button>
+                                            <button type="submit" name="deleteContact" class="btn">Supprimer</button>
                                         </div>
                                     </div>
                                 </div>
